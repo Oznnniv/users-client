@@ -34,7 +34,7 @@
                 <td>{{ user.status }}</td>
                 <td>{{ user.email }}</td>
                 <td>{{ user.typeOfUser }}</td>
-                <td>{{ user.date }}</td>
+                <td>{{ user.creationDate }}</td>
                 <td>
                   <form method="POST"  role="form" action="" >
                     <a [routerLink]= "['/userDelete', user.email]" class="btn btn-danger text-black" type="submit">Eliminar</a>

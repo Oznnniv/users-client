@@ -1,0 +1,39 @@
+<nav class="navbar navbar-vertical navbar-expand-md navbar-light" id="color">
+  <div class="container-fluid">
+    <!-- Brand -->
+    <a class="navbar-brand pt-0" routerLinkActive="active" [routerLink]="['/merchants-home']">
+      <img src="./assets/img/brand/perfil.jpg" class="navbar-brand-img" alt="...">
+    </a>
+    <!-- Collapse -->
+    <div class="collapse navbar-collapse" [ngbCollapse]="isCollapsed" id="sidenav-collapse-main">
+      <!-- Collapse header -->
+      <!-- Divider -->
+      <hr class="my-3">
+      <!-- Heading -->
+      <h3 class="text-light">Usuario Comerciante</h3>
+      <!-- Navigation -->
+      <ul class="navbar-nav mb-md-3">
+        <li class="nav-item">
+          <a class="nav-link" routerLinkActive="active" [routerLink]="['/merchants-home']">
+            <i class="bx bx-home"></i> Inicio
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLinkActive="active" [routerLink]="['/merchants-data']">
+            <i class="bx bx-file-blank"></i> Datos
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLinkActive="active" [routerLink]="['/merchants-about']">
+            <i class="bx bx-user"></i> Acerca de mí
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLinkActive="active" [routerLink]="['/merchants-detail']">
+            <i class="bx bx-book-content"></i> Detalles
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

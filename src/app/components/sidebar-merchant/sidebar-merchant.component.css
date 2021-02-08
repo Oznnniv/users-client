@@ -1,0 +1,6 @@
+#color {
+  transition: all ease-in-out 0.5s;
+  z-index: 9997;
+  transition: all 0.5s;
+  background-color: rgba(204,252,210,.8);
+}

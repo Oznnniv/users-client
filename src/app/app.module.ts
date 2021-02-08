@@ -5,8 +5,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+import { RootAdminLayoutComponent } from './layouts/root-admin-layout/root-admin-layout.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
+import { MerchantLayoutComponent } from './layouts/merchant-layout/merchant-layout.component';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -19,6 +20,10 @@ import { UsersDeleteComponent } from './pages/users-delete/users-delete.componen
 import { UsersDetailsComponent } from './pages/users-details/users-details.component';
 import { RootCreationComponent } from './pages/root-creation/root-creation.component';
 import { RootWelcomeComponent } from './pages/root-welcome/root-welcome.component';
+import { MerchantDataComponent } from './pages/merchant-data/merchant-data.component';
+import { MerchantHomeComponent } from './pages/merchant-home/merchant-home.component';
+import { MerchantAboutComponent } from './pages/merchant-about/merchant-about.component';
+import { MerchantDetailComponent } from './pages/merchant-detail/merchant-detail.component';
 
 
 @NgModule({
@@ -33,7 +38,8 @@ import { RootWelcomeComponent } from './pages/root-welcome/root-welcome.componen
   ],
   declarations: [
     AppComponent,
-    AdminLayoutComponent,
+    RootAdminLayoutComponent,
+    MerchantLayoutComponent,
     AuthLayoutComponent,
     TokenComponent,
     UsersCreationComponent,
@@ -41,7 +47,12 @@ import { RootWelcomeComponent } from './pages/root-welcome/root-welcome.componen
     UsersDeleteComponent,
     UsersDetailsComponent,
     RootCreationComponent,
-    RootWelcomeComponent
+    RootWelcomeComponent,
+    MerchantDataComponent,
+    MerchantHomeComponent,
+    MerchantAboutComponent,
+    MerchantDetailComponent,
+
   ],
   providers: [],
   bootstrap: [AppComponent]

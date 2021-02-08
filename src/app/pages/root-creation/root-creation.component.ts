@@ -23,8 +23,8 @@ export class RootCreationComponent {
 		private _router: Router
 	){
 		this.isHidden = true;
-		this.user = new Users('', '', '', 'create', 'createRoot', '', '	', 'Root', true, true, true, true, true, true, true, true, true, true, true, true);
-		//this.user = new Users('email', 'password', 'initialToken', 'typeOfOperation', 'nameOfOperation', 'addressU', 'hashX', 'typeOfUser', 'dp1', 'dp2', 'dp3', 'dp4', 'dp5', 'dp6', 'dp7', 'dp8', 'dp9', 'dp10', 'dp11', 'dp12');
+		this.user = new Users('', '', 'Root', '', 'create', 'createRoot', '', '', true, 'xx/xx/xxxx', '', true, true, true, true, true, true, true, true, true, true, true, true);
+		//this.user = new Users('email', 'password', 'typeOfUser', 'initialToken', 'typeOfOperation', 'nameOfOperation', 'addressU', 'hashX', 'status', 'creationDate', 'nameOfUser', 'dp1', 'dp2', 'dp3', 'dp4', 'dp5', 'dp6', 'dp7', 'dp8', 'dp9', 'dp10', 'dp11', 'dp12');
 	}
 
 	ngOnInit() {
@@ -32,8 +32,8 @@ export class RootCreationComponent {
 
 	public onSubmit(){
 		var md5 = new Md5();
-		if(this.user.email == '' || this.user.password == ''){
-			return alert("Rellena los campos");
+		if(this.user.email == '' || this.user.nameOfUser == '' || this.user.password == '' || this.user.addressU == ''){
+			return alert("Rellena todos los campos");
 		}
 		var jsonDP = '{ "createAdministrator": '+this.user.dp1+', "createTUser": '+this.user.dp2+', "updateMe": '+this.user.dp3+', "updateAdministrator": '+this.user.dp4+', "updateTUser": '+this.user.dp5+', "deleteMe": '+this.user.dp6+', "deleteAdministrator": '+this.user.dp7+', "deleteTUser": '+this.user.dp8+', "readMe": '+this.user.dp9+', "readAdministrator": '+this.user.dp10+', "readTUser": '+this.user.dp11+', "loginUser": '+this.user.dp12+' }';
 		var jsonData = {
@@ -44,6 +44,9 @@ export class RootCreationComponent {
 			typeOfOperation: this.user.typeOfOperation,
 			nameOfOperation: this.user.nameOfOperation,
 			addressU: this.user.addressU,
+			nameOfUser: this.user.nameOfUser,
+			creationDate: this.user.creationDate,
+			status: this.user.status,
 			dp: jsonDP
 		};
 		 //CHECAR EL MD5 PARA DESPUÉS

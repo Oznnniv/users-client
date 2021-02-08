@@ -1,0 +1,69 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-lg-10">
+      <div class="card bg-secondary shadow border-0">
+        <div class="card-header bg-transparent pb-5">
+          <div class="text-muted text-center mt-2 mb-3"><h1>Datos generales</h1></div>
+        </div>
+        <div class="card-body px-lg-5 py-lg-5">
+			<form (ngSubmit)="onSubmit()">
+				<div class="text-center" *ngIf="infoMessage">
+					<strong>Respuesta:</strong> {{ infoMessage }}
+				</div>
+				<div class="row">
+					<div class="col">
+						<label for="map">Mapa:</label>
+						<input class="form-control" #map="ngModel" name="map" [(ngModel)]="merchant.map" id="map" type="text" placeholder="Latitud - Longitud" required="">
+					</div>
+					<div class="col">
+						<label for="id">ID:</label>
+						<input class="form-control" #id="ngModel" name="id" [(ngModel)]="merchant.id" id="id" type="text" placeholder="ID" required="">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<label for="fid">FID:</label>
+						<input class="form-control" #fid="ngModel" name="fid" [(ngModel)]="merchant.fid" id="fid" type="text" placeholder="FID" required="">
+					</div>
+					<div class="col">
+						<label for="fe">Fecha:</label>
+						<input class="form-control" #date="ngModel" name="date" [(ngModel)]="merchant.date" id="date" type="text" placeholder="Date" required="">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<label for="im">Imagen:</label>
+						<input class="form-control" #image="ngModel" name="image" [(ngModel)]="merchant.image" id="image" type="file" required="">
+					</div>
+					<div class="col">
+						<label for="des">Descripción:</label>
+						<input class="form-control" #description="ngModel" name="description" [(ngModel)]="merchant.description" id="description" type="text" placeholder="Description" required="">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<label for="tip">Tipo:</label>
+						<input class="form-control" #type="ngModel" name="type" [(ngModel)]="merchant.type" id="type" type="text" placeholder="Type" required="" disabled>
+					</div>
+					<div class="col">
+						<label for="per">Permisos:</label>
+						<input class="form-control" #permitions="ngModel" name="permitions" [(ngModel)]="merchant.permitions" id="permitions" type="text" placeholder="Habilitados" required="" disabled>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<label for="mp">Maps:</label>
+						<div id="map-canvas" class="map-canvas" data-lat="40.748817" data-lng="-73.985428" style="height: 600px;"></div>
+					</div>
+				</div>
+				<br>
+				<div class="form-group">
+					<button type="submit" class="btn btn-success btn-lg">Enviar</button>
+				</div>
+			</form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

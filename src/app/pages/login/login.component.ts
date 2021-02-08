@@ -11,6 +11,8 @@ import { Login } from '../../models/login';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit, OnDestroy {
+	public isHidden: boolean;
+
 	public user: Login;
 	public menu: boolean;
 	public errorMessage: any;
@@ -22,26 +24,35 @@ export class LoginComponent implements OnInit, OnDestroy {
 	){
 		console.log(localStorage);
 		localStorage.clear();
-		this.menu = false;
-		this.user = new Login('', '', '');
+		this.isHidden = true;
+		//this.menu = false;
+		this.user = new Login('', '', '', 'authentication', 'loginUser');
 	}
 
 	ngOnInit() {
 	}
 
 	public onSubmit(){
-		if(this.user.typeOfUser == ''){
-			return alert("Selecciona un tipo de usuario");
-		}else if(this.user.email == '' || this.user.password == ''){
+		if(this.user.email == '' || this.user.password == ''){
 			return alert("Rellena todos los campos");
 		}
 		this._userService.singUp(this.user).subscribe(
 			response => {
-				//console.log(response.user);
-				//this.rootCreation = false;
-				//this.menu = true;x
-				localStorage.setItem('identity', JSON.stringify(response.user));
-				this._router.navigate(['/login/token']);
+				console.log(response);
+				if(response.message == true){
+					console.log(response.user);
+					//this.rootCreation = false;
+					//this.menu = true;
+					localStorage.setItem('token', response.token.replace(/['"]+/g, ''));
+					localStorage.setItem('identity', JSON.stringify(response.user));
+					if(response.user.typeOfUser == 'Root' || response.user.typeOfUser == 'Administrator'){
+						this._router.navigate(['/welcome']);
+					}else{
+						this._router.navigate(['/merchants-home']);
+					}
+				} else if(response.message == false){
+					this.errorMessage = "No tienes permisos para ingresar al sistema";
+				}
 			},
 			error => {
 				var errorMessage = <any> error;

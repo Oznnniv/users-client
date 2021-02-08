@@ -29,9 +29,10 @@ export class UsersCreationComponent implements OnInit {
 		this.isHidden = true;
 		this.isTUser = true;
 		this.token = this._userService.getToken();
+		//this.user = new Users('email', 'password', 'typeOfUser', 'initialToken', 'typeOfOperation', 'nameOfOperation', 'addressU', 'hashX', 'status', 'creationDate', 'nameOfUser', 'dp1', 'dp2', 'dp3', 'dp4', 'dp5', 'dp6', 'dp7', 'dp8', 'dp9', 'dp10', 'dp11', 'dp12');
 
-		this.user = new Users('', '', this.token, 'create', '', '', 'hashX', '', false, false, false, false, false, false, false, false, false, false, false, false);
-		//this.user = new Users('email', 'password', 'initialToken', 'typeOfOperation', 'nameOfOperation', 'addressU', 'hashX', 'typeOfUser', 'dp1', 'dp2', 'dp3', 'dp4', 'dp5', 'dp6', 'dp7', 'dp8', 'dp9', 'dp10', 'dp11', 'dp12');
+		this.user = new Users('', '', '', this.token, 'create', '', '', '', true, 'xx/xx/xxxx', '', false, false, false, false, false, false, false, false, false, false, false, false);
+		//this.user = new Users('email', 'password', 'typeOfUser', 'initialToken', 'typeOfOperation', 'nameOfOperation', 'addressU', 'hashX', 'status', 'creationDate', 'nameOfUser', 'dp1', 'dp2', 'dp3', 'dp4', 'dp5', 'dp6', 'dp7', 'dp8', 'dp9', 'dp10', 'dp11', 'dp12');
 	}
 
 	ngOnInit() {
@@ -42,7 +43,7 @@ export class UsersCreationComponent implements OnInit {
 		if(this.user.typeOfUser == 'Administrator'){
 			this.user.nameOfOperation = 'createAdministrator';
 			this.isTUser = true;
-		}else if(this.user.typeOfUser == 'TUser'){
+		}else if(this.user.typeOfUser == 'TUser' || this.user.typeOfUser == 'Merchant' || this.user.typeOfUser == 'Carrier' || this.user.typeOfUser == 'Acopio' || this.user.typeOfUser == 'Productor'){
 			this.user.nameOfOperation = 'createTUser';
 			this.user.dp1 = false;
 			this.user.dp2 = false;
@@ -59,8 +60,8 @@ export class UsersCreationComponent implements OnInit {
 	}
 	public onSubmit(){
 		var md5 = new Md5();
-		if(this.user.email == '' || this.user.password == ''){
-			return alert("Rellena los campos");
+		if(this.user.email == '' || this.user.nameOfUser == '' || this.user.password == '' || this.user.addressU == '' || this.user.typeOfUser == ''){
+			return alert("Verifica todos los campos");
 		}
 		var jsonDP = '{ "createAdministrator": '+this.user.dp1+', "createTUser": '+this.user.dp2+', "updateMe": '+this.user.dp3+', "updateAdministrator": '+this.user.dp4+', "updateTUser": '+this.user.dp5+', "deleteMe": '+this.user.dp6+', "deleteAdministrator": '+this.user.dp7+', "deleteTUser": '+this.user.dp8+', "readMe": '+this.user.dp9+', "readAdministrator": '+this.user.dp10+', "readTUser": '+this.user.dp11+', "loginUser": '+this.user.dp12+' }';
 		var jsonData = {
@@ -71,17 +72,21 @@ export class UsersCreationComponent implements OnInit {
 			typeOfOperation: this.user.typeOfOperation,
 			nameOfOperation: this.user.nameOfOperation,
 			addressU: this.user.addressU,
+			nameOfUser: this.user.nameOfUser,
+			creationDate: this.user.creationDate,
+			status: this.user.status,
 			dp: jsonDP
 		};
 		 //CHECAR EL MD5 PARA DESPUÉS
 		var hashX = md5.appendStr(JSON.stringify(jsonData)).end();
-		 jsonData.hashX = hashX;
-
+		jsonData.hashX = hashX;
+		console.log(jsonData);
 		this._userService.createUsers(jsonData).subscribe(
 			response => {
 				//console.log(response.message);
 				//this.rootCreation = false;
 				//this.menu = true;
+				//AGREGAR UN MENSAJE DE ÉXITO
 				this._router.navigate(['/tables']);
 			},
 			error => {

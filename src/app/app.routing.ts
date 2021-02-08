@@ -3,12 +3,12 @@ import { CommonModule, } from '@angular/common';
 import { BrowserModule  } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
 
-import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
+import { MerchantLayoutComponent } from './layouts/merchant-layout/merchant-layout.component';
+import { RootAdminLayoutComponent } from './layouts/root-admin-layout/root-admin-layout.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
+
 import { RootCreationComponent } from './pages/root-creation/root-creation.component';
 import { RootWelcomeComponent } from './pages/root-welcome/root-welcome.component';
-
-
 
 const routes: Routes =[
   /*{
@@ -24,11 +24,11 @@ const routes: Routes =[
   }, //ruta /
   {
     path: '',
-    component: AdminLayoutComponent,
+    component: RootAdminLayoutComponent,
     children: [
       {
         path: '',
-        loadChildren: './layouts/admin-layout/admin-layout.module#AdminLayoutModule'
+        loadChildren: './layouts/root-admin-layout/root-admin-layout.module#RootAdminLayoutModule'
       }
     ]
   }, {
@@ -40,7 +40,18 @@ const routes: Routes =[
         loadChildren: './layouts/auth-layout/auth-layout.module#AuthLayoutModule'
       }
     ]
-  }, {
+  },
+  {
+    path: '',
+    component: MerchantLayoutComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: './layouts/merchant-layout/merchant-layout.module#MerchantLayoutModule'
+      }
+    ]
+  },
+  {
     path: '**',
     redirectTo: 'userCreation' //poner página 404
   }

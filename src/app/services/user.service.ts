@@ -143,4 +143,22 @@ export class UserService{
 			//}.pipe(map(res => res.json()));
 			//.pipe(map(data => new user(data)));
 	}
+
+	merchantData(merchant, gethash = null){
+		if(gethash != null){
+			merchant.gethash = gethash;
+		}
+		let json = JSON.stringify(merchant);
+		let params = json;
+		let token = this.getToken();
+		let headers = new HttpHeaders()
+			.set('Content-Type', 'application/json')
+			.set('Authorization', token);
+		//console.log(headers);
+		//let headers = new Headers({'Content-Type':'aplication/json'});
+
+		return this._http.post(this.url+'merchantData', params, {headers: headers});
+			//}.pipe(map(res => res.json()));
+			//.pipe(map(data => new user(data)));
+	}
 }

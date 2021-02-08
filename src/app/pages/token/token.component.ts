@@ -13,7 +13,7 @@ import { Token } from '../../models/token';
 })
 
 export class TokenComponent implements OnInit {
-public isHidden: boolean;
+	public isHidden: boolean;
 	public token: Token;
 	public errorMessage: any;
 	public email: string;
@@ -34,7 +34,6 @@ public isHidden: boolean;
 	}
 
 	public onSubmit(){
-
 		console.log(this.token);
 		var jsonData = {
 			token: this.token.token.replace(/['"]+/g, ''),
@@ -44,19 +43,23 @@ public isHidden: boolean;
 		}
 		this._userService.checkToken(jsonData).subscribe(
 			response => {
-				console.log(jsonData.token);
-				//this.rootCreation = false;
-				//this.menu = true;
-				//Guardar el token en el localStorage
-				localStorage.setItem('token', jsonData.token);
-				//console.log(this.token.token);
-				this._router.navigate(['/welcome']);
+				if (response.message == true) {
+					console.log(jsonData.token);
+					//this.rootCreation = false;
+					//this.menu = true;
+					//Guardar el token en el localStorage
+					localStorage.setItem('token', jsonData.token);
+					//console.log(this.token.token);
+					this._router.navigate(['/welcome']);
+				}else if(response.message == false){
+					this.errorMessage = "No tienes permisos para ingresar al sistema";
+				}
 			},
 			error => {
-				var errorMessage = <any> error;
-				if(errorMessage != null){
-					//console.log(error.error.message);
-					this.errorMessage = error.error.message;
+				var errors = <any> error;
+				if(errors != null){
+					//console.log(errors.error);
+					this.errorMessage = errors.error.message;
 					if(this.errorMessage == null || this.errorMessage == 'error de users - :C'){
 						this.errorMessage = "Token o email incorrectos";
 						this.limit = this.limit + 1;

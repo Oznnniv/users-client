@@ -24,7 +24,7 @@ export class UsersDeleteComponent implements OnInit {
 
 
 	constructor(
-		private _userService:UserService,
+		private _userService: UserService,
 		private _route: ActivatedRoute,
 		private _router: Router
 	){
@@ -32,11 +32,10 @@ export class UsersDeleteComponent implements OnInit {
 		this.isTUser = true;
 		this.identity = this._userService.getIdentity();
 		//this.user = new Users('null', 'null', 'null', 'null', 'null', 'null', 'null', 'null', null, null, null, null, null, null, null, null, null, null, null, null);
-		//this.user = new Users('email', 'password', 'initialToken', 'typeOfOperation', 'nameOfOperation', 'addressU', 'hashX', 'typeOfUser', 'dp1', 'dp2', 'dp3', 'dp4', 'dp5', 'dp6', 'dp7', 'dp8', 'dp9', 'dp10', 'dp11', 'dp12');
+		//this.user = new Users('email', 'password', 'typeOfUser', 'initialToken', 'typeOfOperation', 'nameOfOperation', 'addressU', 'hashX', 'status', 'creationDate', 'nameOfUser', 'dp1', 'dp2', 'dp3', 'dp4', 'dp5', 'dp6', 'dp7', 'dp8', 'dp9', 'dp10', 'dp11', 'dp12');
 		this.user = JSON.parse(this.identity);
 		//console.log(this.user);
 		this.token = this._userService.getToken();
-
 	}
 
 	ngOnInit() {
@@ -48,29 +47,32 @@ export class UsersDeleteComponent implements OnInit {
 			let id = params['id'];
 			this._userService.getUser(this.token, id).subscribe(
 			response => {
-				if(!response.users){
+				if(!response.user){
 					this._router.navigate(['/']);
 				}else{
-					if(this.user.email == response.users.email){
-						this.nameOfOperation = 'deleteMe';
-					}else if(response.users.typeOfUser == 'Administrator'){
+					if(this.user.email == response.user.email){
+						//this.nameOfOperation = 'deleteMe';
+						this._router.navigate(['/user-profile']);
+					}else if(response.user.typeOfUser == 'Administrator'){
 						this.nameOfOperation = 'deleteAdministrator';
-					}else if(response.users.typeOfUser == 'TUser'){
+					}else if(response.user.typeOfUser == 'TUser'){
 						this.nameOfOperation = 'deleteTUser';
 					}else{
 						this.nameOfOperation = null;
 					}
-
-					var responseDP = JSON.parse(response.users.dp);
+					var responseDP = JSON.parse(response.user.dp);
 					var jsonData = {
-						email: response.users.email,
-						password: response.users.password,
-						typeOfUser: response.users.typeOfUser,
-						initialToken: response.users.initialToken,
+						email: response.user.email,
+						password: response.user.password,
+						typeOfUser: response.user.typeOfUser,
+						initialToken: response.user.initialToken,
 						typeOfOperation: 'delete',
 						nameOfOperation: this.nameOfOperation,
-						addressU: response.users.addressU,
-						hashX: response.users.hashX,
+						addressU: response.user.addressU,
+						nameOfUser: response.user.nameOfUser,
+						creationDate: response.user.creationDate,
+						status: response.user.status,
+						hashX: response.user.hashX,
 						dp1: responseDP.createAdministrator,
 						dp2: responseDP.createTUser,
 						dp3: responseDP.updateMe,
@@ -85,9 +87,9 @@ export class UsersDeleteComponent implements OnInit {
 						dp12: responseDP.loginUser,
 					};
 					this.user = jsonData;
-					if(response.users.typeOfUser == 'Administrator' || response.users.typeOfUser == 'Root' ){
+					if(response.user.typeOfUser == 'Administrator' || response.user.typeOfUser == 'Root' ){
 						this.isTUser = false;
-					}else if(response.users.typeOfUser == 'TUser'){
+					}else if(response.user.typeOfUser == 'TUser' || response.user.typeOfUser == 'Merchant' || response.user.typeOfUser == 'Carrier' || response.user.typeOfUser == 'Acopio' || response.user.typeOfUser == 'Productor'){
 						this.isTUser = true;
 					}
 				}
@@ -97,7 +99,7 @@ export class UsersDeleteComponent implements OnInit {
 				if(errorMessage != null){
 					//console.log("Administrator: "+error.error.message);
 					this.errorMessage = error.error.message;
-					this.user = new Users('null', 'null', 'null', 'null', 'null', 'null', 'null', 'null', null, null, null, null, null, null, null, null, null, null, null, null);
+					this.user = new Users('null', 'null', 'null', 'null', 'null', 'null', 'null', 'null', 'null', 'null', 'null', null, null, null, null, null, null, null, null, null, null, null, null);
 				}
 			}
 		)
@@ -105,7 +107,7 @@ export class UsersDeleteComponent implements OnInit {
 	}
 
 	public onSubmit(){
-		var jsonDP = '{ "createAdministrator": '+this.user.dp1+', "createTUser": '+this.user.dp2+', "updateMe": '+this.user.dp3+', "updateAdministrator": '+this.user.dp4+', "updateTUser": '+this.user.dp5+', "deleteMe": '+this.user.dp6+', "deleteAdministrator": '+this.user.dp7+', "deleteTUser": '+this.user.dp8+', "readMe": '+this.user.dp9+', "readAdministrator": '+this.user.dp10+', "readTUser": '+this.user.dp11+', "loginUser": '+this.user.dp12+' }';
+		//var jsonDP = '{ "createAdministrator": '+this.user.dp1+', "createTUser": '+this.user.dp2+', "updateMe": '+this.user.dp3+', "updateAdministrator": '+this.user.dp4+', "updateTUser": '+this.user.dp5+', "deleteMe": '+this.user.dp6+', "deleteAdministrator": '+this.user.dp7+', "deleteTUser": '+this.user.dp8+', "readMe": '+this.user.dp9+', "readAdministrator": '+this.user.dp10+', "readTUser": '+this.user.dp11+', "loginUser": '+this.user.dp12+' }';
 		var jsonData = {
 			//email: this.user.email,
 			//password: this.user.password,
@@ -117,9 +119,9 @@ export class UsersDeleteComponent implements OnInit {
 			//hashX: this.user.hashX,
 			//dp: jsonDP
 		};
-		var md5 = new Md5();
-		var f = md5.appendStr(JSON.stringify(jsonData)).end();
-		console.log(jsonData);
+		//var md5 = new Md5();
+		//var f = md5.appendStr(JSON.stringify(jsonData)).end();
+		//console.log(jsonData);
 		 //CHECAR EL MD5 PARA DESPUÉS
 		this._userService.deleteUsers(this.user.email, jsonData).subscribe(
 			response => {

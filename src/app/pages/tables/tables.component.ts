@@ -64,7 +64,7 @@ export class TablesComponent implements OnInit {
 			this._userService.getUsers(this.token, page).subscribe(
 			response => {
 				this.items = response.total_items;
-				console.log(response.users);
+				console.log(response);
 				if(!response.users){
 					this._router.navigate(['/']);
 				}else{
@@ -76,7 +76,7 @@ export class TablesComponent implements OnInit {
 				if(errorMessage != null){
 					//console.log("Administrator: "+error.error.message);
 					this.errorMessage = error.error.message;
-					this.user = new Users('null', 'null', 'null', 'null', 'null', 'null', 'null', 'null', null, null, null, null, null, null, null, null, null, null, null, null);
+					this.users = new Users('null', 'null', 'null', 'null', 'null', 'null', 'null', 'null', 'null', 'null', 'null', null, null, null, null, null, null, null, null, null, null, null, null);
 				}
 			}
 		)
