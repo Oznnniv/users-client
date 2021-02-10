@@ -10,8 +10,8 @@ import { MerchantDetailComponent } from '../../pages/merchant-detail/merchant-de
 export const MerchantLayoutRoutes: Routes = [
     //{ path: 'dashboard',      component: DashboardComponent },
     //{ path: '',              component: RootCreationComponent },
-    { path: 'merchants-home',		component: MerchantDataComponent },
-    { path: 'merchants-data',		component: MerchantDataComponent },
-    { path: 'merchants-about',		component: MerchantDataComponent },
-    { path: 'merchants-detail',		component: MerchantDataComponent },
+    { path: 'merchantsHome',		component: MerchantHomeComponent },
+    { path: 'merchantsData',		component: MerchantDataComponent },
+    { path: 'merchantsAbout',		component: MerchantAboutComponent },
+    { path: 'merchantsDetail',		component: MerchantDetailComponent },
 ];

@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 					if(response.user.typeOfUser == 'Root' || response.user.typeOfUser == 'Administrator'){
 						this._router.navigate(['/welcome']);
 					}else{
-						this._router.navigate(['/merchants-home']);
+						this._router.navigate(['/merchantsHome']);
 					}
 				} else if(response.message == false){
 					this.errorMessage = "No tienes permisos para ingresar al sistema";

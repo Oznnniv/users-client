@@ -11,6 +11,7 @@ import { Users } from '../../models/users';
   providers: [UserService],
   styleUrls: ['./users-details.component.css']
 })
+
 export class UsersDetailsComponent implements OnInit {
 	public token: any;
 	public form: any;
@@ -21,7 +22,6 @@ export class UsersDetailsComponent implements OnInit {
 	public errorMessage: any;
 	public registerOk: any;
 	public nameOfOperation;
-
 
 	constructor(
 		private _userService: UserService,

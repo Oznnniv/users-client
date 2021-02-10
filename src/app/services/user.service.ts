@@ -87,11 +87,11 @@ export class UserService{
 		return this._http.get(this.url+'userDetails/'+id, {headers: headers});
 	}
 
-	getUsers(token, id: string){
+	getUsers(token, page: string){
 		let headers = new HttpHeaders()
 			.set('Content-Type', 'application/json')
 			.set('Authorization', token);
-		return this._http.get(this.url+'usersDetails/'+id, {headers: headers});
+		return this._http.get(this.url+'usersDetails/'+page, {headers: headers});
 	}
 
 	getToken(){
@@ -157,7 +157,7 @@ export class UserService{
 		//console.log(headers);
 		//let headers = new Headers({'Content-Type':'aplication/json'});
 
-		return this._http.post(this.url+'merchantData', params, {headers: headers});
+		return this._http.post(this.url+'merchantsData', params, {headers: headers});
 			//}.pipe(map(res => res.json()));
 			//.pipe(map(data => new user(data)));
 	}

@@ -10,7 +10,8 @@ declare const google: any;
   selector: 'app-merchant-data',
   templateUrl: './merchant-data.component.html',
   providers: [UserService],
-  styleUrls: ['./merchant-data.component.css']
+  //styleUrls: ['./merchant-data.component.css']
+  styleUrls: ['../../../assets/css/app.component.css']
 })
 export class MerchantDataComponent implements OnInit {
 	public merchant: Merchants;

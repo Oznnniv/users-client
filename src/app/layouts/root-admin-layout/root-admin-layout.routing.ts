@@ -25,5 +25,5 @@ export const RootAdminLayoutRoutes: Routes = [
     { path: 'userDelete/:id',       component: UsersDeleteComponent },
     { path: 'userDetails/:id',      component: UsersDetailsComponent },
     //{ path: 'icons',          component: IconsComponent },
-    { path: 'maps',           component: MapsComponent }
+    //{ path: 'maps',           component: MapsComponent }
 ];
